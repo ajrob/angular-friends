@@ -1,4 +1,4 @@
-<html>
+<html ng-app="friends">
 <head>
 <script src='http://code.jquery.com/jquery-1.10.2.js' type='text/javascript'></script>
 <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
@@ -20,13 +20,13 @@
 
 <h1>The <strong>facebook</strong> Friend Machine</h1>
 
-<div class="friends">
-
+<div class="friends" ng-controller="friendController">
 
 <form class="form-inline searchForm" role="form">
   <div class="form-group">
 
-  <input class="form-control" placeholder="Search Anything About Your Friends" >
+  <input class="form-control" placeholder="Search Your Friends' Names" ng-model="search.name">
+  <input class="form-control" placeholder="Search Your Friends' Locations" ng-model="search.current_location">
   <!-- The stuff below is For step 5....get rid of the one above if you wish-->
 <!--    
     <input class="form-control" placeholder="Search Your Friends' Name" >
@@ -47,17 +47,18 @@
 </form>
 
   <ul>
-    <li class='friend'>
-       <img class="profile-pic" src='https://scontent-a.xx.fbcdn.net/hprofile-ash3/833_10200838803828124_1233160321_a.jpg'>
-      <h3>Cali Fornia</h3>
+    <li class='friend' ng-repeat="friend in friends | filter:search">
+       <img class="profile-pic" src='{{friend.pic_square}}'>
+      <h3 >{{friend.name}}</h3>
+
       <div class="location">
-        Location: New Port Beach, California, United States
+        Location: {{friend.current_location.name}}, {{friend.current_location.country}}
       </div>      
       <div class="status">
-        Status: I hate the snow. I wish I was on the beach right now!!! <span class="hashtag">#ihateprovo</span>
+        Status: {{friend.status.message}}
       </div>      
       <div class="num-friends">
-        Friends: 1,367
+        Friends: {{friend.friend_count}}
       </div>
     </li>
   </ul>
